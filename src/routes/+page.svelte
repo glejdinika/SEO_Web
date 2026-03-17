@@ -1,5 +1,6 @@
 <script>
  import background from '$lib/assets/pic1.jpg';
+ import placeholderProductImage from '/product-placeholder.svg';
 
  let { data } = $props();
 
@@ -55,8 +56,12 @@
     >
      <a href={`/product/${product.slug}`} class="flex h-full flex-col">
       <img
-       src={product.image_url}
+        src={product.image_url || placeholderProductImage}
        alt={product.name}
+        onerror={(event) => {
+         event.currentTarget.onerror = null;
+         event.currentTarget.src = placeholderProductImage;
+        }}
        class="aspect-4/3 w-full rounded-2xl object-cover transition duration-300 group-hover:scale-[1.02]"
       />
       <h2 class="mt-4 text-lg leading-tight font-semibold text-violet-50">{product.name}</h2>
